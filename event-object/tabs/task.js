@@ -1,17 +1,17 @@
-document.addEventListener("DOMContentLoaded", function() {
-	const dropdownValue = document.querySelector('.dropdown__value');
-	const dropdownList = document.querySelector('.dropdown__list');
-	const dropdownLinks = Array.from(document.querySelectorAll('.dropdown__link'));
+let tab = document.querySelectorAll('.tab');
+let active = document.querySelector('.tab_active')
+let content = document.querySelectorAll('.tab__content')
+let contentActiv = document.querySelector('.tab__content_active')
 
-	dropdownValue.addEventListener('click', function() {
-		dropdownList.classList.toggle('dropdown__list_active');
-	});
-
-	dropdownLinks.forEach(element => {
-		element.addEventListener('click', function(event) {
-			event.preventDefault();
-			dropdownList.classList.remove('dropdown__list_active');
-			dropdownValue.textContent = event.currentTarget.textContent;
-		});
-	});
-});
+for (let i = 0; i < tab.length; i++) {
+    tab[i].addEventListener('click', toggleActive);
+}
+function toggleActive() {
+    active.classList.remove('tab_active');
+    this.classList.add('tab_active');
+    active = this;
+    let indexTab = [...tab].findIndex(obj => obj.classList.contains('tab_active'))
+    let indexContent = [...content].findIndex(obj => obj.classList.contains('tab__content_active'))
+    content[indexContent].classList.remove('tab__content_active')
+    content[indexTab].classList.add('tab__content_active')
+}
